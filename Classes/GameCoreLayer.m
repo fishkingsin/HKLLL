@@ -93,7 +93,7 @@
 		mapnode.imgid = imgMap[i];
 		[array addObject:mapnode];
 	}
-    NSLog(@"array %@" ,array);
+//    NSLog(@"array %@" ,array);
 	NSArray *sortarray = [array sortedArrayUsingSelector:@selector(myCompare:)];;
 	arrayMap = [[NSMutableArray alloc] init];
 	
@@ -206,6 +206,7 @@
 	}
 	
 	CCSprite *spritecurrent = (CCSprite *)[self getChildByTag:(TAG_START_SPRITE + [self indexFromPoint:pointcurrent])];
+    
 	spritecurrent.scale = 0.6;
 	
 	if ([self isValiableNode:prePoint]) {

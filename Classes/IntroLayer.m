@@ -31,14 +31,37 @@
 	background = [CCSprite spriteWithFile:@"bg.png"];	background.position = ccp(size.width/2, size.height/2);
 	[self addChild: background];
 	
-	CCLabelTTF *label = [CCLabelTTF labelWithString:@"Kong Kong Link" fontName:@"Helvetica" fontSize:24];
+	CCLabelTTF *label = nil;
+    int ran = (int)(CCRANDOM_0_1() * 5);
+    switch(ran)
+    {
+        case 0:
+            label = [CCLabelTTF labelWithString:@"西" fontName:@"Helvetica" fontSize:48];
+            break;
+        case 1:
+            label = [CCLabelTTF labelWithString:@"小" fontName:@"Helvetica" fontSize:48];
+            break;
+        case 2:
+            label = [CCLabelTTF labelWithString:@"能" fontName:@"Helvetica" fontSize:48];
+            break;
+        case 3:
+            label = [CCLabelTTF labelWithString:@"七" fontName:@"Helvetica" fontSize:48];
+            break;
+        case 4:
+            label = [CCLabelTTF labelWithString:@"九" fontName:@"Helvetica" fontSize:48];
+            break;
+            
+    }
 	label.position =  ccp( size.width /2 , size.height/2 );
 	[self addChild: label];
 	
-	CCSprite *button;
-	button = [CCSprite spriteWithFile:@"play.png"];
-	button.position = ccp(size.width/2, size.height/2 - 80);
-	[self addChild:button];
+    label = [CCLabelTTF labelWithString:@"開始" fontName:@"Helvetica" fontSize:24];
+    label.position =  ccp( size.width /2 , (size.height/2)-50 );
+	[self addChild: label];
+//	CCSprite *button;
+//	button = [CCSprite spriteWithFile:@"play.png"];
+//	button.position = ccp(size.width/2, size.height/2 - 80);
+//	[self addChild:button];
 	
 	self.isTouchEnabled = YES;
 }

@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "SimpleAudioEngine.h"
 #import "IntroLayer.h"
-
+#define DEBUG
 #define TAG_START_SPRITE			100
 #define TAG_LABEL_CONNER			501
 #define TAG_LABEL_NUMBER			502
@@ -21,7 +21,12 @@
 #define TOTAL_X								10
 #define TOTAL_Y								10
 #define TOTAL_IMG							16
+#ifdef DEBUG
+#define MAX_CLEARED						4
+#else
 #define MAX_CLEARED						24
+#endif
+
 
 #pragma mark - GameCoreLayer
 
@@ -217,7 +222,7 @@
 				[self showWin];
 			}
 			CCLabelTTF *label = (CCLabelTTF *)[self getChildByTag:TAG_LABEL_CONNER];
-			label.string = [NSString stringWithFormat:@"进度:%d%%", (int)(countCleared * 100 / MAX_CLEARED)];
+			label.string = [NSString stringWithFormat:@"Progress:%d%%", (int)(countCleared * 100 / MAX_CLEARED)];
 		} else {
 			spritepre.scale = 0.5;
 		}
@@ -230,9 +235,15 @@
 
 - (void)showWin
 {
-	CCLabelTTF *label = [CCLabelTTF labelWithString:@"恭喜过关！" fontName:@"Arial" fontSize:36];
+	CCLabelTTF *label = [CCLabelTTF labelWithString:@"Congraduration!" fontName:@"Helvetica" fontSize:32];
 	CGSize s = [[CCDirector sharedDirector] winSize];
 	label.position = ccp(s.width/2, s.height/2);
+    [self addChild:label];
+    
+    label = [CCLabelTTF labelWithString:@"You termincated all membership of Executive Council" fontName:@"Helvetica" fontSize:12];
+    s = [[CCDirector sharedDirector] winSize];
+	label.position = ccp(s.width/2, s.height/2-50);
+
 	[self addChild:label];
 	[self scheduleOnce:@selector(makeTransition:) delay:2.0];
 }
@@ -280,7 +291,18 @@
 	
 	return bMatch;
 }
-
+#ifdef DEBUG
+static int imgMap[64] = {
+    1 , 1 , 2 , 2 , 3 , 3 , 4 , 4 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+};
+#else
 static int imgMap[64] = {
   1 , 1 , 2 , 2 , 3 , 3 , 4 , 4 ,
   5 , 5 , 5 , 5 , 6 , 6 , 0 , 0 ,
@@ -291,7 +313,7 @@ static int imgMap[64] = {
 	15, 15, 16, 16, 0 , 0 , 0 , 0 ,
   0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
 };
-
+#endif
 - (NSString *)imageFilename:(NSInteger)index
 {
 	int n = [[arrayMap objectAtIndex:index] imgid];

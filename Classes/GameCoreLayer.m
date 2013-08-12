@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "SimpleAudioEngine.h"
 #import "IntroLayer.h"
-#define DEBUG
+//#define DEBUG
 #define TAG_START_SPRITE			100
 #define TAG_LABEL_CONNER			501
 #define TAG_LABEL_NUMBER			502

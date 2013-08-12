@@ -14,9 +14,9 @@
 #define TAG_START_SPRITE			100
 #define TAG_LABEL_CONNER			501
 #define TAG_LABEL_NUMBER			502
-#define OFFSET_X							-40
+#define OFFSET_X							10
 #define OFFSET_Y							60
-#define SIZE_W								40
+#define SIZE_W								30
 #define SIZE_H								40
 #define TOTAL_X								10
 #define TOTAL_Y								10
@@ -133,25 +133,25 @@
 	button.position = ccp(size.width - 55, 25);
 	[self addChild:button];
 	
-	CCLabelTTF *label = [CCLabelTTF labelWithString:@"Progress:0%" fontName:@"Arial" fontSize:20];
-	label.position = ccp(50, 15);
+	CCLabelTTF *label = [CCLabelTTF labelWithString:@"Progress:0%" fontName:@"Helvetica" fontSize:20];
+	label.position = ccp(100, 15);
 	[self addChild:label z:0 tag:TAG_LABEL_CONNER];
 	
-	CCLabelTTF *labelnum1 = [CCLabelTTF labelWithString:@"1" fontName:@"Marker Felt" fontSize:64];
+	CCLabelTTF *labelnum1 = [CCLabelTTF labelWithString:@"1" fontName:@"Helvetica" fontSize:64];
 	labelnum1.position =  ccp( size.width /2 , size.height/2 );
 	[self addChild: labelnum1];
 	
-	CCLabelTTF *labelnum2 = [CCLabelTTF labelWithString:@"2" fontName:@"Marker Felt" fontSize:64];
+	CCLabelTTF *labelnum2 = [CCLabelTTF labelWithString:@"2" fontName:@"Helvetica" fontSize:64];
 	labelnum2.position =  ccp( size.width /2 , size.height/2 );
 	labelnum2.visible = NO;
 	[self addChild: labelnum2];
 	
-	CCLabelTTF *labelnum3 = [CCLabelTTF labelWithString:@"3" fontName:@"Marker Felt" fontSize:64];
+	CCLabelTTF *labelnum3 = [CCLabelTTF labelWithString:@"3" fontName:@"Helvetica" fontSize:64];
 	labelnum3.position =  ccp( size.width /2 , size.height/2 );
 	labelnum3.visible = NO;
 	[self addChild: labelnum3];
 	
-	CCLabelTTF *labelnum4 = [CCLabelTTF labelWithString:@"GO" fontName:@"Marker Felt" fontSize:64];
+	CCLabelTTF *labelnum4 = [CCLabelTTF labelWithString:@"GO" fontName:@"Helvetica" fontSize:64];
 	labelnum4.position =  ccp( size.width /2 , size.height/2 );
 	labelnum4.visible = NO;
 	[self addChild: labelnum4];

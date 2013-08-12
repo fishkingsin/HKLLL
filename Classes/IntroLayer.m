@@ -31,7 +31,7 @@
 	background = [CCSprite spriteWithFile:@"bg.png"];	background.position = ccp(size.width/2, size.height/2);
 	[self addChild: background];
 	
-	CCLabelTTF *label = [CCLabelTTF labelWithString:@"Link" fontName:@"Marker Felt" fontSize:48];
+	CCLabelTTF *label = [CCLabelTTF labelWithString:@"Kong Kong Link" fontName:@"Helvetica" fontSize:24];
 	label.position =  ccp( size.width /2 , size.height/2 );
 	[self addChild: label];
 	

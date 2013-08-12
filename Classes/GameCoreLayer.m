@@ -126,7 +126,7 @@
 			if ([self imageFilename:index]) {
                 
 				CCSprite *sprite = [CCSprite spriteWithFile:[self imageFilename:index]];
-                sprite.scale=0.5;
+                sprite.scale= 1;
 				sprite.position = ccp(OFFSET_X + (SIZE_W / 2) + SIZE_W * x, OFFSET_Y + (SIZE_H / 2) + SIZE_H * y);
 				[self addChild:sprite z:0 tag:(TAG_START_SPRITE + index)];
 			}
@@ -207,7 +207,7 @@
 	
 	CCSprite *spritecurrent = (CCSprite *)[self getChildByTag:(TAG_START_SPRITE + [self indexFromPoint:pointcurrent])];
     
-	spritecurrent.scale = 0.6;
+	spritecurrent.scale = 1.1;
 	
 	if ([self isValiableNode:prePoint]) {
 		CCSprite *spritepre = (CCSprite *)[self getChildByTag:(TAG_START_SPRITE + [self indexFromPoint:prePoint])];
@@ -225,7 +225,7 @@
 			CCLabelTTF *label = (CCLabelTTF *)[self getChildByTag:TAG_LABEL_CONNER];
 			label.string = [NSString stringWithFormat:@"Progress:%d%%", (int)(countCleared * 100 / MAX_CLEARED)];
 		} else {
-			spritepre.scale = 0.5;
+			spritepre.scale = 1;
 		}
 	}
 	

@@ -88,6 +88,7 @@
 		mapnode.imgid = imgMap[i];
 		[array addObject:mapnode];
 	}
+    NSLog(@"array %@" ,array);
 	NSArray *sortarray = [array sortedArrayUsingSelector:@selector(myCompare:)];;
 	arrayMap = [[NSMutableArray alloc] init];
 	
@@ -118,6 +119,7 @@
 		for (int x = 0; x < TOTAL_X; ++x) {
 			NSInteger index = y * TOTAL_Y + x;
 			if ([self imageFilename:index]) {
+                
 				CCSprite *sprite = [CCSprite spriteWithFile:[self imageFilename:index]];
                 sprite.scale=0.5;
 				sprite.position = ccp(OFFSET_X + (SIZE_W / 2) + SIZE_W * x, OFFSET_Y + (SIZE_H / 2) + SIZE_H * y);

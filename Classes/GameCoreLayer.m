@@ -10,26 +10,63 @@
 #import "AppDelegate.h"
 #import "SimpleAudioEngine.h"
 #import "IntroLayer.h"
-//#define DEBUG
+//#define _DEBUG_
 #define TAG_START_SPRITE			100
 #define TAG_LABEL_CONNER			501
 #define TAG_LABEL_NUMBER			502
-#define OFFSET_X							10
-#define OFFSET_Y							60
-#define SIZE_W								30
-#define SIZE_H								40
+#define _OFFSET_X							10
+#define _OFFSET_Y							60
+#define _SIZE_W								30
+#define _SIZE_H								40
 #define TOTAL_X								10
 #define TOTAL_Y								10
 #define TOTAL_IMG							16
-#ifdef DEBUG
-#define MAX_CLEARED						4
+#ifdef _DEBUG_
+    #define MAX_CLEARED						4
 #else
-#define MAX_CLEARED						24
+    #define MAX_CLEARED						24
+#endif
+#ifdef _DEBUG_
+static int imgMap[64] = {
+    1 , 1 , 2 , 2 , 3 , 3 , 4 , 4 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+};
+#else
+static int imgMap[64] = {
+    1 , 1 , 2 , 2 , 3 , 3 , 4 , 4 ,
+    5 , 5 , 5 , 5 , 6 , 6 , 0 , 0 ,
+    7 , 7 , 7 , 7 , 8 , 8 , 0 , 0 ,
+    9 , 9 , 9 , 9 , 10, 10, 10, 10,
+    11, 11, 11, 11, 12, 12, 12, 12,
+    13, 13, 13, 13, 14, 14, 14, 14,
+	15, 15, 16, 16, 0 , 0 , 0 , 0 ,
+    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
+};
 #endif
 
-
 #pragma mark - GameCoreLayer
+@interface GameCoreLayer ()
+{
+    CGSize screenSize;
+    float OFFSET_X	;						//10
+    float OFFSET_Y;							//60
+    float SIZE_W;								//30
+    float SIZE_H;								//40
+}
 
+@property (nonatomic, strong) CCSprite *explosion1;
+@property (nonatomic, strong) CCSprite *explosion2;
+@property (nonatomic, strong) CCAction *walkAction;
+@property (nonatomic, strong) CCAction *walkAction2;
+@property (nonatomic, strong) CCAction *moveAction;
+
+@end
 @implementation GameCoreLayer
 
 + (CCScene *)scene
@@ -42,13 +79,104 @@
 
 - (id)init
 {
+    
 	self = [super init];
+
 	if(self) {
-		[self initSound];
+        screenSize = [[CCDirector sharedDirector] winSizeInPixels];
+        NSLog(@"screenSize width %f ,height %f",screenSize.width,screenSize.height);
+
+        if(screenSize.height==1024)
+        {
+            
+            OFFSET_X = _OFFSET_X ;						//10
+            OFFSET_Y= _OFFSET_Y ;                              //60
+            SIZE_W= _SIZE_W ;								//30
+            SIZE_H= _SIZE_H ;								//40
+        }
+        else if(screenSize.height==2048)
+        {
+            OFFSET_X = _OFFSET_X * 2 ;						//10
+            OFFSET_Y= _OFFSET_Y * 2 ;                              //60
+            SIZE_W= _SIZE_W* 2 ;								//30
+            SIZE_H= _SIZE_H* 2 ;								//40
+        }
+        else if(screenSize.height==1136){
+            float scale = 1136.0f/960.0f;
+            OFFSET_X = _OFFSET_X ;						//10
+            OFFSET_Y= _OFFSET_Y *scale;							//60
+            SIZE_W= _SIZE_W 	;							//30
+            SIZE_H= _SIZE_H ;								//40
+        }
+        else {
+            OFFSET_X = _OFFSET_X ;						//10
+            OFFSET_Y= _OFFSET_Y ;							//60
+            SIZE_W= _SIZE_W ;								//30
+            SIZE_H= _SIZE_H ;								//40
+        }
+        
+        [self initSound];
 		[self initData];
 		[self initView];
+        
+        [self initAnimation];
+        [self initAnimation2];
 	}
 	return self;
+}
+- (void)initAnimation
+{
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"animation.plist"];
+    
+    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"animation.png"];
+    [self addChild:spriteSheet];
+    
+    NSMutableArray *walkAnimFrames = [NSMutableArray array];
+    for (int i=1; i<=18; i++) {
+        [walkAnimFrames addObject:
+         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
+          [NSString stringWithFormat:@"image_%02d.png",i]]];
+    }
+    
+    CCAnimation *walkAnim = [CCAnimation animationWithSpriteFrames:walkAnimFrames delay:0.1f];
+    
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    _explosion1 = [CCSprite spriteWithSpriteFrameName:@"image_01.png"];
+    _explosion1.position = ccp(0,0);ccp(winSize.width/2, winSize.height/2);
+    self.walkAction = [CCSequence actions:
+                       [CCAnimate actionWithAnimation:walkAnim],
+                       nil];
+//    [_explosion1 runAction:self.walkAction];
+    
+    
+    [spriteSheet addChild:_explosion1];
+}
+- (void)initAnimation2
+{
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"animation.plist"];
+    
+    CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"animation.png"];
+    [self addChild:spriteSheet];
+    
+    NSMutableArray *walkAnimFrames = [NSMutableArray array];
+    for (int i=1; i<=18; i++) {
+        [walkAnimFrames addObject:
+         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
+          [NSString stringWithFormat:@"image_%02d.png",i]]];
+    }
+    
+    CCAnimation *walkAnim = [CCAnimation animationWithSpriteFrames:walkAnimFrames delay:0.1f];
+    
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    _explosion2 = [CCSprite spriteWithSpriteFrameName:@"image_01.png"];
+    _explosion2.position = ccp(0,0);//ccp(winSize.width/2, winSize.height/2);
+    self.walkAction2 = [CCSequence actions:
+                       [CCAnimate actionWithAnimation:walkAnim],
+                       nil];
+//    [_explosion2 runAction:self.walkAction2];
+    
+    
+    [spriteSheet addChild:_explosion2];
 }
 
 - (void) dealloc
@@ -61,9 +189,9 @@
 
 - (void)initSound
 {
-	[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0.3f];
-	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"back1.mp3" loop:NO];
-	[[CDAudioManager sharedManager] setBackgroundMusicCompletionListener:self selector:@selector(soundFinish1)];
+//	[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0.3f];
+//	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"back1.mp3" loop:NO];
+//	[[CDAudioManager sharedManager] setBackgroundMusicCompletionListener:self selector:@selector(soundFinish1)];
 }
 
 - (void)soundFinish1
@@ -116,6 +244,8 @@
 {
 	self.isTouchEnabled = YES;
 	CGSize size = [[CCDirector sharedDirector] winSize];
+    NSLog(@"Canvs width %f",size.width);
+        NSLog(@"Canvs height %f",size.height);
 	CCSprite *background;
 	background = [CCSprite spriteWithFile:@"bg.png"];
 	background.position = ccp(size.width/2, size.height/2);
@@ -222,6 +352,15 @@
 				[[SimpleAudioEngine sharedEngine] playEffect:@"win.mp3"];
 				[self showWin];
 			}
+
+            [self.explosion1 setPosition:[spritepre position]];
+            [self.explosion1 stopAction:self.walkAction];
+             [self.explosion1 runAction:self.walkAction];
+            
+            [self.explosion2 setPosition:[spritecurrent position]];
+            [self.explosion2 stopAction:self.walkAction2];
+            [self.explosion2 runAction:self.walkAction2];
+
 			CCLabelTTF *label = (CCLabelTTF *)[self getChildByTag:TAG_LABEL_CONNER];
 			label.string = [NSString stringWithFormat:@"Progress:%d%%", (int)(countCleared * 100 / MAX_CLEARED)];
 		} else {
@@ -292,29 +431,7 @@
 	
 	return bMatch;
 }
-#ifdef DEBUG
-static int imgMap[64] = {
-    1 , 1 , 2 , 2 , 3 , 3 , 4 , 4 ,
-    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
-    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
-    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
-    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
-    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
-    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
-    0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
-};
-#else
-static int imgMap[64] = {
-  1 , 1 , 2 , 2 , 3 , 3 , 4 , 4 ,
-  5 , 5 , 5 , 5 , 6 , 6 , 0 , 0 ,
-  7 , 7 , 7 , 7 , 8 , 8 , 0 , 0 ,
-  9 , 9 , 9 , 9 , 10, 10, 10, 10,
-  11, 11, 11, 11, 12, 12, 12, 12,
-  13, 13, 13, 13, 14, 14, 14, 14,
-	15, 15, 16, 16, 0 , 0 , 0 , 0 ,
-  0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
-};
-#endif
+
 - (NSString *)imageFilename:(NSInteger)index
 {
 	int n = [[arrayMap objectAtIndex:index] imgid];
@@ -330,8 +447,8 @@ static int imgMap[64] = {
 	int y = -1;
 	if (point.x > OFFSET_X && point.x < TOTAL_X * SIZE_W + OFFSET_X)
 		x = (point.x - OFFSET_X) / SIZE_W;
-	if (point.y > 480 - OFFSET_Y - TOTAL_Y * SIZE_H && point.y < 480 - OFFSET_Y)
-		y = (480 - point.y - OFFSET_Y) / SIZE_H;
+	if (point.y > screenSize.height - OFFSET_Y - TOTAL_Y * SIZE_H && point.y < screenSize.height - OFFSET_Y)
+		y = (screenSize.height - point.y - OFFSET_Y) / SIZE_H;
 	return CGPointMake(x, y);
 }
 

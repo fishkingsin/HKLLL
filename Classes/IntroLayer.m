@@ -58,6 +58,7 @@
     label = [CCLabelTTF labelWithString:@"開始" fontName:@"AmericanTypewriter-CondensedBold" fontSize:24];
     label.position =  ccp( size.width /2 , (size.height/2)-50 );
 	[self addChild: label];
+    
 //	CCSprite *button;
 //	button = [CCSprite spriteWithFile:@"play.png"];
 //	button.position = ccp(size.width/2, size.height/2 - 80);

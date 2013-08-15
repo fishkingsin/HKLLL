@@ -85,8 +85,8 @@ static int imgMap[64] = {
 	if(self) {
         screenSize = [[CCDirector sharedDirector] winSizeInPixels];
         NSLog(@"screenSize width %f ,height %f",screenSize.width,screenSize.height);
-
-        if(screenSize.height==1024)
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        if(screenBounds.size.height ==1024)
         {
             
             OFFSET_X = _OFFSET_X ;						//10
@@ -94,14 +94,14 @@ static int imgMap[64] = {
             SIZE_W= _SIZE_W ;								//30
             SIZE_H= _SIZE_H ;								//40
         }
-        else if(screenSize.height==2048)
+        else if(screenBounds.size.height==2048)
         {
             OFFSET_X = _OFFSET_X * 2 ;						//10
             OFFSET_Y= _OFFSET_Y * 2 ;                              //60
             SIZE_W= _SIZE_W* 2 ;								//30
             SIZE_H= _SIZE_H* 2 ;								//40
         }
-        else if(screenSize.height==1136){
+        else if(screenBounds.size.height==1136){
             float scale = 1136.0f/960.0f;
             OFFSET_X = _OFFSET_X ;						//10
             OFFSET_Y= _OFFSET_Y *scale;							//60
@@ -189,9 +189,9 @@ static int imgMap[64] = {
 
 - (void)initSound
 {
-//	[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0.3f];
-//	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"back1.mp3" loop:NO];
-//	[[CDAudioManager sharedManager] setBackgroundMusicCompletionListener:self selector:@selector(soundFinish1)];
+	[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0.3f];
+	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"back1.mp3" loop:NO];
+	[[CDAudioManager sharedManager] setBackgroundMusicCompletionListener:self selector:@selector(soundFinish1)];
 }
 
 - (void)soundFinish1
@@ -311,6 +311,7 @@ static int imgMap[64] = {
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    NSLog(@"touch %@ ",touches);
 	UITouch *touch = [touches anyObject];
 	
 	CGPoint ptouch = [touch locationInView:touch.view];
@@ -322,10 +323,12 @@ static int imgMap[64] = {
 	CGPoint pointcurrent = [self pointOfView:[touch locationInView:touch.view]];
 	
 	if ([self isValiableNode:pointcurrent] == NO) {
+         NSLog(@"pointcurrent not a visible node");
 		return;
 	}
 	
 	if ([self isEmptyNode:pointcurrent]) {
+        NSLog(@"pointcurrent isEmptyNode");
 		return;
 	}
 	

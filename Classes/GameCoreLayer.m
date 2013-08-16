@@ -87,12 +87,20 @@ static int imgMap[64] = {
         CGSize screenPixelsSize = [[CCDirector sharedDirector] winSizeInPixels];
         CGSize scale = CGSizeMake(screenPixelsSize.width/640.0f, screenPixelsSize.height/960.0f);
         
-        
-        OFFSET_X = _OFFSET_X *scale.width;						//10
-        OFFSET_Y= _OFFSET_Y *scale.height;                              //60
-        SIZE_W= _SIZE_W *scale.width;								//30
-        SIZE_H= _SIZE_H *scale.width;								//40
-        
+        if(screenPixelsSize.height!=1024)
+        {
+            OFFSET_X = _OFFSET_X *scale.width;						//10
+            OFFSET_Y= _OFFSET_Y *scale.width;                              //60
+            SIZE_W= _SIZE_W *scale.width;								//30
+            SIZE_H= _SIZE_H *scale.width;								//40
+        }
+        else{
+            scale = CGSizeMake(screenPixelsSize.width/320, screenPixelsSize.height/480);
+            OFFSET_X = _OFFSET_X *scale.width;						//10
+            OFFSET_Y= _OFFSET_Y *scale.width;                              //60
+            SIZE_W= _SIZE_W *scale.width;								//30
+            SIZE_H= _SIZE_H *scale.width;								//40
+        }
         [self initSound];
 		[self initData];
 		[self initView];
@@ -167,9 +175,9 @@ static int imgMap[64] = {
 
 - (void)initSound
 {
-    //	[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0.3f];
-    //	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"back1.mp3" loop:NO];
-    //	[[CDAudioManager sharedManager] setBackgroundMusicCompletionListener:self selector:@selector(soundFinish1)];
+	[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0.3f];
+	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"back1.mp3" loop:NO];
+	[[CDAudioManager sharedManager] setBackgroundMusicCompletionListener:self selector:@selector(soundFinish1)];
 }
 
 - (void)soundFinish1

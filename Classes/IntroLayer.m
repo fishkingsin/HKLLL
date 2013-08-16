@@ -56,20 +56,34 @@
 	[self addChild: label];
 	
     label = [CCLabelTTF labelWithString:@"開始" fontName:@"AmericanTypewriter-CondensedBold" fontSize:24];
-    label.position =  ccp( size.width /2 , (size.height/2)-50 );
-	[self addChild: label];
+//    label.position =  ccp( size.width /2 , (size.height/2)-50 );
+//	[self addChild: label];
     
 //	CCSprite *button;
 //	button = [CCSprite spriteWithFile:@"play.png"];
 //	button.position = ccp(size.width/2, size.height/2 - 80);
 //	[self addChild:button];
+    
+    // Standard method to create a button
+    
+    CCMenuItem *starMenuItem = [CCMenuItemLabel itemWithLabel:label target:self selector:@selector(starButtonTapped:)];
+    
+//    CCMenuItem *starMenuItem = [CCMenuItemImage
+//                                itemFromNormalImage:@"play.png" selectedImage:@"play.png"
+//                                target:self selector:@selector(starButtonTapped:)];
+    starMenuItem.position = ccp(size.width/2, size.height/2 - 80);
+    CCMenu *starMenu = [CCMenu menuWithItems:starMenuItem, nil];
+    starMenu.position = CGPointZero;
+    [self addChild:starMenu];
 	
 	self.isTouchEnabled = YES;
 }
-
+- (void)starButtonTapped:(id)sender {
+    [self scheduleOnce:@selector(makeTransition:) delay:0];
+}
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	[self scheduleOnce:@selector(makeTransition:) delay:0];
+	
 }
 
 -(void) makeTransition:(ccTime)dt

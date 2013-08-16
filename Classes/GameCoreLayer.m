@@ -22,9 +22,9 @@
 #define TOTAL_Y								10
 #define TOTAL_IMG							16
 #ifdef _DEBUG_
-    #define MAX_CLEARED						4
+#define MAX_CLEARED						4
 #else
-    #define MAX_CLEARED						24
+#define MAX_CLEARED						24
 #endif
 #ifdef _DEBUG_
 static int imgMap[64] = {
@@ -81,39 +81,17 @@ static int imgMap[64] = {
 {
     
 	self = [super init];
-
+    
 	if(self) {
-        screenSize = [[CCDirector sharedDirector] winSizeInPixels];
-        NSLog(@"screenSize width %f ,height %f",screenSize.width,screenSize.height);
-        CGRect screenBounds = [[UIScreen mainScreen] bounds];
-        if(screenBounds.size.height ==1024)
-        {
-            
-            OFFSET_X = _OFFSET_X ;						//10
-            OFFSET_Y= _OFFSET_Y ;                              //60
-            SIZE_W= _SIZE_W ;								//30
-            SIZE_H= _SIZE_H ;								//40
-        }
-        else if(screenBounds.size.height==2048)
-        {
-            OFFSET_X = _OFFSET_X * 2 ;						//10
-            OFFSET_Y= _OFFSET_Y * 2 ;                              //60
-            SIZE_W= _SIZE_W* 2 ;								//30
-            SIZE_H= _SIZE_H* 2 ;								//40
-        }
-        else if(screenBounds.size.height==1136){
-            float scale = 1136.0f/960.0f;
-            OFFSET_X = _OFFSET_X ;						//10
-            OFFSET_Y= _OFFSET_Y *scale;							//60
-            SIZE_W= _SIZE_W 	;							//30
-            SIZE_H= _SIZE_H ;								//40
-        }
-        else {
-            OFFSET_X = _OFFSET_X ;						//10
-            OFFSET_Y= _OFFSET_Y ;							//60
-            SIZE_W= _SIZE_W ;								//30
-            SIZE_H= _SIZE_H ;								//40
-        }
+        screenSize = [[CCDirector sharedDirector] winSize];
+        CGSize screenPixelsSize = [[CCDirector sharedDirector] winSizeInPixels];
+        CGSize scale = CGSizeMake(screenPixelsSize.width/640.0f, screenPixelsSize.height/960.0f);
+        
+        
+        OFFSET_X = _OFFSET_X *scale.width;						//10
+        OFFSET_Y= _OFFSET_Y *scale.height;                              //60
+        SIZE_W= _SIZE_W *scale.width;								//30
+        SIZE_H= _SIZE_H *scale.width;								//40
         
         [self initSound];
 		[self initData];
@@ -146,7 +124,7 @@ static int imgMap[64] = {
     self.walkAction = [CCSequence actions:
                        [CCAnimate actionWithAnimation:walkAnim],
                        nil];
-//    [_explosion1 runAction:self.walkAction];
+    //    [_explosion1 runAction:self.walkAction];
     
     
     [spriteSheet addChild:_explosion1];
@@ -171,9 +149,9 @@ static int imgMap[64] = {
     _explosion2 = [CCSprite spriteWithSpriteFrameName:@"image_01.png"];
     _explosion2.position = ccp(0,0);//ccp(winSize.width/2, winSize.height/2);
     self.walkAction2 = [CCSequence actions:
-                       [CCAnimate actionWithAnimation:walkAnim],
-                       nil];
-//    [_explosion2 runAction:self.walkAction2];
+                        [CCAnimate actionWithAnimation:walkAnim],
+                        nil];
+    //    [_explosion2 runAction:self.walkAction2];
     
     
     [spriteSheet addChild:_explosion2];
@@ -189,9 +167,9 @@ static int imgMap[64] = {
 
 - (void)initSound
 {
-	[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0.3f];
-	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"back1.mp3" loop:NO];
-	[[CDAudioManager sharedManager] setBackgroundMusicCompletionListener:self selector:@selector(soundFinish1)];
+    //	[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0.3f];
+    //	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"back1.mp3" loop:NO];
+    //	[[CDAudioManager sharedManager] setBackgroundMusicCompletionListener:self selector:@selector(soundFinish1)];
 }
 
 - (void)soundFinish1
@@ -221,7 +199,7 @@ static int imgMap[64] = {
 		mapnode.imgid = imgMap[i];
 		[array addObject:mapnode];
 	}
-//    NSLog(@"array %@" ,array);
+    //    NSLog(@"array %@" ,array);
 	NSArray *sortarray = [array sortedArrayUsingSelector:@selector(myCompare:)];;
 	arrayMap = [[NSMutableArray alloc] init];
 	
@@ -244,11 +222,12 @@ static int imgMap[64] = {
 {
 	self.isTouchEnabled = YES;
 	CGSize size = [[CCDirector sharedDirector] winSize];
-    NSLog(@"Canvs width %f",size.width);
-        NSLog(@"Canvs height %f",size.height);
+//    NSLog(@"Canvs width %f",size.width);
+//    NSLog(@"Canvs height %f",size.height);
 	CCSprite *background;
 	background = [CCSprite spriteWithFile:@"bg.png"];
 	background.position = ccp(size.width/2, size.height/2);
+    background.opacity = 0.3*255;
 	[self addChild: background];
 	for (int y = 0; y < TOTAL_Y; ++y) {
 		for (int x = 0; x < TOTAL_X; ++x) {
@@ -311,19 +290,19 @@ static int imgMap[64] = {
 
 - (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touch %@ ",touches);
+//    NSLog(@"touch %@ ",touches);
 	UITouch *touch = [touches anyObject];
 	
-	CGPoint ptouch = [touch locationInView:touch.view];
-	if (ptouch.x > 250 && ptouch.y > 420) {
-		[[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
-		[self scheduleOnce:@selector(makeTransition:) delay:0];
-	}
+//	CGPoint ptouch = [touch locationInView:touch.view];
+//	if (ptouch.x > 250 && ptouch.y > 420) {
+//		[[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
+//		[self scheduleOnce:@selector(makeTransition:) delay:0];
+//	}
 	
 	CGPoint pointcurrent = [self pointOfView:[touch locationInView:touch.view]];
 	
 	if ([self isValiableNode:pointcurrent] == NO) {
-         NSLog(@"pointcurrent not a visible node");
+        NSLog(@"pointcurrent not a visible node");
 		return;
 	}
 	
@@ -355,15 +334,15 @@ static int imgMap[64] = {
 				[[SimpleAudioEngine sharedEngine] playEffect:@"win.mp3"];
 				[self showWin];
 			}
-
+            
             [self.explosion1 setPosition:[spritepre position]];
             [self.explosion1 stopAction:self.walkAction];
-             [self.explosion1 runAction:self.walkAction];
+            [self.explosion1 runAction:self.walkAction];
             
             [self.explosion2 setPosition:[spritecurrent position]];
             [self.explosion2 stopAction:self.walkAction2];
             [self.explosion2 runAction:self.walkAction2];
-
+            
 			CCLabelTTF *label = (CCLabelTTF *)[self getChildByTag:TAG_LABEL_CONNER];
 			label.string = [NSString stringWithFormat:@"Progress:%d%%", (int)(countCleared * 100 / MAX_CLEARED)];
 		} else {
@@ -386,7 +365,7 @@ static int imgMap[64] = {
     label = [CCLabelTTF labelWithString:@"You termincated all membership of Executive Council" fontName:@"Helvetica" fontSize:12];
     s = [[CCDirector sharedDirector] winSize];
 	label.position = ccp(s.width/2, s.height/2-50);
-
+    
 	[self addChild:label];
 	[self scheduleOnce:@selector(makeTransition:) delay:2.0];
 }
@@ -476,7 +455,7 @@ static int imgMap[64] = {
 			for(i = a.y - 1; i > b.y; --i) {
 				CGPoint point = CGPointMake(a.x, i);
 				if(![self isValiableNode:point] ||
-					 ![self isEmptyNode:point]) {
+                   ![self isEmptyNode:point]) {
 					match_x = NO;
 				}
 			}
@@ -485,7 +464,7 @@ static int imgMap[64] = {
 			for(i = b.y - 1; i > a.y; --i) {
 				CGPoint point = CGPointMake(a.x, i);
 				if(![self isValiableNode:point] ||
-					 ![self isEmptyNode:point]) {
+                   ![self isEmptyNode:point]) {
 					match_x = NO;
 				}
 			}
@@ -499,7 +478,7 @@ static int imgMap[64] = {
 			for(i = a.x - 1; i > b.x; --i) {
 				CGPoint point = CGPointMake(i, a.y);
 				if(![self isValiableNode:point] ||
-					 ![self isEmptyNode:point]) {
+                   ![self isEmptyNode:point]) {
 					match_y = NO;
 				}
 			}
@@ -508,7 +487,7 @@ static int imgMap[64] = {
 			for(i = b.x - 1; i > a.x; --i) {
 				CGPoint point = CGPointMake(i, a.y);
 				if(![self isValiableNode:point] ||
-					 ![self isEmptyNode:point]) {
+                   ![self isEmptyNode:point]) {
 					match_y = NO;
 				}
 			}
@@ -522,17 +501,17 @@ static int imgMap[64] = {
 {
 	CGPoint point = CGPointMake(b.x, a.y);
 	if([self isValiableNode:point] &&
-		 [self isEmptyNode:point] &&
-		 [self match_direct:a other:point] &&
-		 [self match_direct:b other:point]) {
+       [self isEmptyNode:point] &&
+       [self match_direct:a other:point] &&
+       [self match_direct:b other:point]) {
 		return YES;
 	}
 	
 	point = CGPointMake(a.x, b.y);
 	if([self isValiableNode:point] &&
-		 [self isEmptyNode:point] &&
-		 [self match_direct:a other:point] &&
-		 [self match_direct:b other:point]) {
+       [self isEmptyNode:point] &&
+       [self match_direct:a other:point] &&
+       [self match_direct:b other:point]) {
 		return YES;
 	}
 	

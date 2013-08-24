@@ -151,6 +151,7 @@
 		E30ECB7017B9D19B00C794BD /* animation.plist in Resources */ = {isa = PBXBuildFile; fileRef = E30ECB6F17B9D19B00C794BD /* animation.plist */; };
 		E30ECB7217B9E1B200C794BD /* animation.png in Resources */ = {isa = PBXBuildFile; fileRef = E30ECB7117B9E1B200C794BD /* animation.png */; };
 		E30ECB7417B9ECB400C794BD /* explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = E30ECB7317B9ECB400C794BD /* explosion.png */; };
+		E32CAE9317BF54D800515E7C /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32CAE9217BF54D800515E7C /* iAd.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		E3F118B617B8DD0200487A65 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E3F118B517B8DD0200487A65 /* Icon.png */; };
 		E3F118B817B8DD4900487A65 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3F118B717B8DD4900487A65 /* Icon@2x.png */; };
 		E3F118BA17B8DD8500487A65 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3F118B917B8DD8500487A65 /* Default@2x.png */; };
@@ -508,6 +509,7 @@
 		E30ECB6F17B9D19B00C794BD /* animation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = animation.plist; path = Resources/animation.plist; sourceTree = "<group>"; };
 		E30ECB7117B9E1B200C794BD /* animation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = animation.png; path = Resources/animation.png; sourceTree = "<group>"; };
 		E30ECB7317B9ECB400C794BD /* explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = explosion.png; path = Resources/explosion.png; sourceTree = "<group>"; };
+		E32CAE9217BF54D800515E7C /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		E3F118B517B8DD0200487A65 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		E3F118B717B8DD4900487A65 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		E3F118B917B8DD8500487A65 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -598,6 +600,7 @@
 				18C19D9C15EF3C320067F98D /* Foundation.framework in Frameworks */,
 				18C19D9E15EF3C320067F98D /* CoreGraphics.framework in Frameworks */,
 				18C19DA015EF3C320067F98D /* GameKit.framework in Frameworks */,
+				E32CAE9317BF54D800515E7C /* iAd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,6 +633,7 @@
 		18C19D8E15EF3C320067F98D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E32CAE9217BF54D800515E7C /* iAd.framework */,
 				18C19D8F15EF3C320067F98D /* QuartzCore.framework */,
 				18C19D9115EF3C320067F98D /* OpenGLES.framework */,
 				18C19D9315EF3C320067F98D /* OpenAL.framework */,

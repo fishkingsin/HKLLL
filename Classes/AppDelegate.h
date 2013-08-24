@@ -8,16 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "cocos2d.h"
-
-@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate>
+#import <iAd/ADBannerView.h>
+@interface AppController : NSObject <UIApplicationDelegate, CCDirectorDelegate , ADBannerViewDelegate>
 {
 	UIWindow *window_;
 	UINavigationController *navController_;
 	CCDirectorIOS	*director_;
+    ADBannerView* adView;
 }
 
 @property (nonatomic, retain) UIWindow *window;
 @property (readonly) UINavigationController *navController;
 @property (readonly) CCDirectorIOS *director;
+@property (nonatomic,retain) ADBannerView *adView;
 
 @end

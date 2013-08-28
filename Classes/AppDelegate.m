@@ -9,6 +9,9 @@
 #import "cocos2d.h"
 #import "AppDelegate.h"
 #import "IntroLayer.h"
+#import <iAd/ADBannerView.h>
+#import <iAd/ADBannerView_Deprecated.h>
+#import <iAd/ADInterstitialAd.h>
 
 @implementation AppController
 
@@ -82,8 +85,38 @@
 	
 	// make main window visible
 	[window_ makeKeyAndVisible];
+    
+
+
+    if([ADBannerView respondsToSelector:@selector(class)]) {
+        adView = [[ADBannerView alloc] initWithFrame:CGRectZero];
+        adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
+        adView.delegate = self;
+        [navController_.view addSubview:adView];
+        
+        [navController_.view addSubview:self.adView];
+
+        [self moveBannerOnScreen];
+    }
 	
 	return YES;
+}
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+    NSLog(@"bannerViewDidLoadAd");
+    
+    [self moveBannerOnScreen];
+}
+
+-(void) moveBannerOnScreen
+{
+    
+    [UIView beginAnimations:@"BannerViewIntro" context:NULL];
+//    int height =  [[UIScreen mainScreen] bounds].size.height -228;
+//    adView.frame = CGRectOffset(adView.frame, 0,height);
+//    self.adView.frame = CGRectZero;
+//    [UIView commitAnimations];
 }
 
 // Supported orientations: Landscape. Customize it for your own needs

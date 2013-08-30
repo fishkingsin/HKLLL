@@ -9,10 +9,7 @@
 #import "cocos2d.h"
 #import "AppDelegate.h"
 #import "IntroLayer.h"
-#import <iAd/ADBannerView.h>
-#import <iAd/ADBannerView_Deprecated.h>
-#import <iAd/ADInterstitialAd.h>
-
+#import "GADBannerView.h"
 @implementation AppController
 
 @synthesize window=window_, navController=navController_, director=director_;
@@ -86,38 +83,28 @@
 	// make main window visible
 	[window_ makeKeyAndVisible];
     
+    bannerView_ = [[GADBannerView alloc]
+                   initWithFrame:CGRectMake(0.0,
+                                            navController_.view.frame.size.height -
+                                            GAD_SIZE_320x50.height,
+                                            GAD_SIZE_320x50.width,
+                                            GAD_SIZE_320x50.height)];
+    bannerView_.adUnitID = @"a1521c629207880";
+    
+    bannerView_.rootViewController = navController_;
+    [navController_.view addSubview:bannerView_];
+    GADRequest *request = [GADRequest request];
+//    request.testDevices = [NSArray arrayWithObjects:@"a65bcdc085aebcbd4e5f04cfe8f7e23c", nil];
+    [bannerView_ loadRequest:request];
+    
 
 
-    if([ADBannerView respondsToSelector:@selector(class)]) {
-        adView = [[ADBannerView alloc] initWithFrame:CGRectZero];
-        adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
-        adView.delegate = self;
-        [navController_.view addSubview:adView];
-        
-        [navController_.view addSubview:self.adView];
 
-        [self moveBannerOnScreen];
-    }
 	
 	return YES;
 }
 
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner
-{
-    NSLog(@"bannerViewDidLoadAd");
-    
-    [self moveBannerOnScreen];
-}
 
--(void) moveBannerOnScreen
-{
-    
-    [UIView beginAnimations:@"BannerViewIntro" context:NULL];
-//    int height =  [[UIScreen mainScreen] bounds].size.height -228;
-//    adView.frame = CGRectOffset(adView.frame, 0,height);
-//    self.adView.frame = CGRectZero;
-//    [UIView commitAnimations];
-}
 
 // Supported orientations: Landscape. Customize it for your own needs
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

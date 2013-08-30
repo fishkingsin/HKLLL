@@ -36,46 +36,35 @@
     switch(ran)
     {
         case 0:
-            label = [CCLabelTTF labelWithString:@"西" fontName:@"Helvetica" fontSize:48];
+            label = [CCLabelTTF labelWithString:NSLocalizedString(@"西", nil) fontName:@"Helvetica" fontSize:48];
             break;
         case 1:
-            label = [CCLabelTTF labelWithString:@"小" fontName:@"Helvetica" fontSize:48];
+            label = [CCLabelTTF labelWithString:NSLocalizedString(@"小", nil) fontName:@"Helvetica" fontSize:48];
             break;
         case 2:
-            label = [CCLabelTTF labelWithString:@"能" fontName:@"Helvetica" fontSize:48];
+            label = [CCLabelTTF labelWithString:NSLocalizedString(@"能", nil) fontName:@"Helvetica" fontSize:48];
             break;
         case 3:
-            label = [CCLabelTTF labelWithString:@"七" fontName:@"Helvetica" fontSize:48];
+            label = [CCLabelTTF labelWithString:NSLocalizedString(@"七", nil) fontName:@"Helvetica" fontSize:48];
             break;
         case 4:
-            label = [CCLabelTTF labelWithString:@"九" fontName:@"Helvetica" fontSize:48];
+            label = [CCLabelTTF labelWithString:NSLocalizedString(@"九", nil) fontName:@"Helvetica" fontSize:48];
             break;
             
     }
 	label.position =  ccp( size.width /2 , size.height/2 );
 	[self addChild: label];
 	
-    label = [CCLabelTTF labelWithString:@"開始" fontName:@"AmericanTypewriter-CondensedBold" fontSize:24];
-//    label.position =  ccp( size.width /2 , (size.height/2)-50 );
-//	[self addChild: label];
-    
-//	CCSprite *button;
-//	button = [CCSprite spriteWithFile:@"play.png"];
-//	button.position = ccp(size.width/2, size.height/2 - 80);
-//	[self addChild:button];
-    
-    // Standard method to create a button
-    
+    label = [CCLabelTTF labelWithString:NSLocalizedString(@"開始", nil) fontName:@"AmericanTypewriter-CondensedBold" fontSize:24];
     CCMenuItem *starMenuItem = [CCMenuItemLabel itemWithLabel:label target:self selector:@selector(starButtonTapped:)];
     
-//    CCMenuItem *starMenuItem = [CCMenuItemImage
-//                                itemFromNormalImage:@"play.png" selectedImage:@"play.png"
-//                                target:self selector:@selector(starButtonTapped:)];
     starMenuItem.position = ccp(size.width/2, size.height/2 - 80);
     CCMenu *starMenu = [CCMenu menuWithItems:starMenuItem, nil];
     starMenu.position = CGPointZero;
+    
     [self addChild:starMenu];
 	
+    
 	self.isTouchEnabled = YES;
 }
 - (void)starButtonTapped:(id)sender {

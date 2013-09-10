@@ -365,12 +365,12 @@ static int imgMap[64] = {
 
 - (void)showWin
 {
-	CCLabelTTF *label = [CCLabelTTF labelWithString:@"Congraduration!" fontName:@"Helvetica" fontSize:32];
+	CCLabelTTF *label = [CCLabelTTF labelWithString:NSLocalizedString(@"Congraduration!",nil) fontName:@"Helvetica" fontSize:32];
 	CGSize s = [[CCDirector sharedDirector] winSize];
 	label.position = ccp(s.width/2, s.height/2);
     [self addChild:label];
     
-    label = [CCLabelTTF labelWithString:@"You termincated all membership of Executive Council" fontName:@"Helvetica" fontSize:12];
+    label = [CCLabelTTF labelWithString:NSLocalizedString(@"You termincated all membership of Executive Council",nil) fontName:@"Helvetica" fontSize:12];
     s = [[CCDirector sharedDirector] winSize];
 	label.position = ccp(s.width/2, s.height/2-50);
     

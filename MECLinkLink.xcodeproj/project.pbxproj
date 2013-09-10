@@ -155,11 +155,11 @@
 		E30EAB7717D0317F00A3EFD2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E30EAB7617D0317F00A3EFD2 /* SystemConfiguration.framework */; };
 		E30EAB7917D0318B00A3EFD2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E30EAB7817D0318B00A3EFD2 /* Security.framework */; };
 		E30EAB7B17D0319700A3EFD2 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E30EAB7A17D0319700A3EFD2 /* AdSupport.framework */; };
-		E30EAB8617D0385500A3EFD2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E30EAB8317D0385500A3EFD2 /* Localizable.strings */; };
 		E30ECB7017B9D19B00C794BD /* animation.plist in Resources */ = {isa = PBXBuildFile; fileRef = E30ECB6F17B9D19B00C794BD /* animation.plist */; };
 		E30ECB7217B9E1B200C794BD /* animation.png in Resources */ = {isa = PBXBuildFile; fileRef = E30ECB7117B9E1B200C794BD /* animation.png */; };
 		E30ECB7417B9ECB400C794BD /* explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = E30ECB7317B9ECB400C794BD /* explosion.png */; };
 		E32CAE9317BF54D800515E7C /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E32CAE9217BF54D800515E7C /* iAd.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		E34BBB3217DEE03E00564DC9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E34BBB3017DEE03E00564DC9 /* Localizable.strings */; };
 		E3F118B617B8DD0200487A65 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E3F118B517B8DD0200487A65 /* Icon.png */; };
 		E3F118B817B8DD4900487A65 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3F118B717B8DD4900487A65 /* Icon@2x.png */; };
 		E3F118BA17B8DD8500487A65 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3F118B917B8DD8500487A65 /* Default@2x.png */; };
@@ -530,12 +530,12 @@
 		E30EAB7617D0317F00A3EFD2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E30EAB7817D0318B00A3EFD2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		E30EAB7A17D0319700A3EFD2 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		E30EAB8417D0385500A3EFD2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
-		E30EAB8517D0385500A3EFD2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E30ECB6F17B9D19B00C794BD /* animation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = animation.plist; path = Resources/animation.plist; sourceTree = "<group>"; };
 		E30ECB7117B9E1B200C794BD /* animation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = animation.png; path = Resources/animation.png; sourceTree = "<group>"; };
 		E30ECB7317B9ECB400C794BD /* explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = explosion.png; path = Resources/explosion.png; sourceTree = "<group>"; };
 		E32CAE9217BF54D800515E7C /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		E34BBB3117DEE03E00564DC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E34BBB3317DEE08700564DC9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E3F118B517B8DD0200487A65 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		E3F118B717B8DD4900487A65 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		E3F118B917B8DD8500487A65 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -704,7 +704,6 @@
 		18C19DA215EF3C320067F98D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E30EAB8217D0385500A3EFD2 /* en.lproj */,
 				E30ECB7317B9ECB400C794BD /* explosion.png */,
 				E30ECB7117B9E1B200C794BD /* animation.png */,
 				E30ECB6F17B9D19B00C794BD /* animation.plist */,
@@ -737,6 +736,7 @@
 				18C19DB515EF3C330067F98D /* Icon.png */,
 				18C19DB915EF3C330067F98D /* Info.plist */,
 				18C19DBA15EF3C330067F98D /* iTunesArtwork */,
+				E34BBB3017DEE03E00564DC9 /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1102,15 +1102,6 @@
 			path = "GoogleAdMobAdsSdkiOS-6.5.0";
 			sourceTree = "<group>";
 		};
-		E30EAB8217D0385500A3EFD2 /* en.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				E30EAB8317D0385500A3EFD2 /* Localizable.strings */,
-			);
-			name = en.lproj;
-			path = Resources/en.lproj;
-			sourceTree = "<group>";
-		};
 		E3F118C117B8DF7000487A65 /* images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1369,7 +1360,7 @@
 				E30ECB7217B9E1B200C794BD /* animation.png in Resources */,
 				E30ECB7417B9ECB400C794BD /* explosion.png in Resources */,
 				E30EAB7017D0313900A3EFD2 /* README.txt in Resources */,
-				E30EAB8617D0385500A3EFD2 /* Localizable.strings in Resources */,
+				E34BBB3217DEE03E00564DC9 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1490,11 +1481,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E30EAB8317D0385500A3EFD2 /* Localizable.strings */ = {
+		E34BBB3017DEE03E00564DC9 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E30EAB8417D0385500A3EFD2 /* en */,
-				E30EAB8517D0385500A3EFD2 /* zh-Hant */,
+				E34BBB3117DEE03E00564DC9 /* en */,
+				E34BBB3317DEE08700564DC9 /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1506,7 +1497,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: kong king sin (9Q6FP8KV93)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: kong king sin (7V4C8TPW4Y)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1519,7 +1510,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "59206909-31C7-490C-90D3-48F13062BE55";
+				PROVISIONING_PROFILE = "64D1EBBC-5D18-4A01-A251-588C995E71AF";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1529,7 +1520,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: kong king sin (9Q6FP8KV93)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: kong king sin (7V4C8TPW4Y)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1540,7 +1531,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				PROVISIONING_PROFILE = "59206909-31C7-490C-90D3-48F13062BE55";
+				PROVISIONING_PROFILE = "64D1EBBC-5D18-4A01-A251-588C995E71AF";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

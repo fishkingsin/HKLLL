@@ -62,8 +62,8 @@ static int imgMap[64] = {
 
 @property (nonatomic, strong) CCSprite *explosion1;
 @property (nonatomic, strong) CCSprite *explosion2;
-@property (nonatomic, strong) CCAction *walkAction;
-@property (nonatomic, strong) CCAction *walkAction2;
+@property (nonatomic, strong) CCAction *exploseAction;
+@property (nonatomic, strong) CCAction *exploseAction2;
 @property (nonatomic, strong) CCAction *moveAction;
 
 @end
@@ -117,22 +117,22 @@ static int imgMap[64] = {
     CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"animation.png"];
     [self addChild:spriteSheet];
     
-    NSMutableArray *walkAnimFrames = [NSMutableArray array];
+    NSMutableArray *exploseAnimFrames = [NSMutableArray array];
     for (int i=1; i<=18; i++) {
-        [walkAnimFrames addObject:
+        [exploseAnimFrames addObject:
          [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
           [NSString stringWithFormat:@"image_%02d.png",i]]];
     }
     
-    CCAnimation *walkAnim = [CCAnimation animationWithSpriteFrames:walkAnimFrames delay:0.1f];
+    CCAnimation *exploseAnim = [CCAnimation animationWithSpriteFrames:exploseAnimFrames delay:0.1f];
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     _explosion1 = [CCSprite spriteWithSpriteFrameName:@"image_01.png"];
     _explosion1.position = ccp(0,0);ccp(winSize.width/2, winSize.height/2);
-    self.walkAction = [CCSequence actions:
-                       [CCAnimate actionWithAnimation:walkAnim],
+    self.exploseAction = [CCSequence actions:
+                       [CCAnimate actionWithAnimation:exploseAnim],
                        nil];
-    //    [_explosion1 runAction:self.walkAction];
+    //    [_explosion1 runAction:self.exploseAction];
     
     
     [spriteSheet addChild:_explosion1];
@@ -144,22 +144,22 @@ static int imgMap[64] = {
     CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:@"animation.png"];
     [self addChild:spriteSheet];
     
-    NSMutableArray *walkAnimFrames = [NSMutableArray array];
+    NSMutableArray *exploseAnimFrames = [NSMutableArray array];
     for (int i=1; i<=18; i++) {
-        [walkAnimFrames addObject:
+        [exploseAnimFrames addObject:
          [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
           [NSString stringWithFormat:@"image_%02d.png",i]]];
     }
     
-    CCAnimation *walkAnim = [CCAnimation animationWithSpriteFrames:walkAnimFrames delay:0.1f];
+    CCAnimation *exploseAnim = [CCAnimation animationWithSpriteFrames:exploseAnimFrames delay:0.1f];
     
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     _explosion2 = [CCSprite spriteWithSpriteFrameName:@"image_01.png"];
     _explosion2.position = ccp(0,0);//ccp(winSize.width/2, winSize.height/2);
-    self.walkAction2 = [CCSequence actions:
-                        [CCAnimate actionWithAnimation:walkAnim],
+    self.exploseAction2 = [CCSequence actions:
+                        [CCAnimate actionWithAnimation:exploseAnim],
                         nil];
-    //    [_explosion2 runAction:self.walkAction2];
+    //    [_explosion2 runAction:self.exploseAction2];
     
     
     [spriteSheet addChild:_explosion2];
@@ -176,7 +176,7 @@ static int imgMap[64] = {
 - (void)initSound
 {
 	[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0.3f];
-	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"back1.mp3" loop:NO];
+	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"back2.mp3" loop:NO];
 	[[CDAudioManager sharedManager] setBackgroundMusicCompletionListener:self selector:@selector(soundFinish1)];
 }
 
@@ -190,7 +190,7 @@ static int imgMap[64] = {
 - (void)soundFinish2
 {
 	[[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
-	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"back3.mp3" loop:NO];
+	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"back2.mp3" loop:NO];
 	[[CDAudioManager sharedManager] setBackgroundMusicCompletionListener:self selector:@selector(soundFinish1)];
 }
 
@@ -327,7 +327,7 @@ static int imgMap[64] = {
 	
 	CCSprite *spritecurrent = (CCSprite *)[self getChildByTag:(TAG_START_SPRITE + [self indexFromPoint:pointcurrent])];
     
-	spritecurrent.scale = 1.1;
+	spritecurrent.scale = 1.5;
 	
 	if ([self isValiableNode:prePoint]) {
 		CCSprite *spritepre = (CCSprite *)[self getChildByTag:(TAG_START_SPRITE + [self indexFromPoint:prePoint])];
@@ -344,12 +344,17 @@ static int imgMap[64] = {
 			}
             
             [self.explosion1 setPosition:[spritepre position]];
-            [self.explosion1 stopAction:self.walkAction];
-            [self.explosion1 runAction:self.walkAction];
+            [self.explosion1 stopAction:self.exploseAction];
+            [self.explosion1 runAction:self.exploseAction];
             
             [self.explosion2 setPosition:[spritecurrent position]];
-            [self.explosion2 stopAction:self.walkAction2];
-            [self.explosion2 runAction:self.walkAction2];
+            [self.explosion2 stopAction:self.exploseAction2];
+            [self.explosion2 runAction:self.exploseAction2];
+            
+            if([self checkAvailablility ] ==NO)
+            {
+                [self reset];
+            }
             
 			CCLabelTTF *label = (CCLabelTTF *)[self getChildByTag:TAG_LABEL_CONNER];
 			label.string = [NSString stringWithFormat:@"Progress:%d%%", (int)(countCleared * 100 / MAX_CLEARED)];
@@ -360,7 +365,14 @@ static int imgMap[64] = {
 	
 	prePoint = pointcurrent;
 }
-
+- (void)reset
+{
+}
+- (BOOL) checkAvailablility
+{
+    
+    return NO;
+}
 #pragma mark util method
 
 - (void)showWin

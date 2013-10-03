@@ -74,8 +74,17 @@
 	
 	// Create a Navigation Controller with the Director
 	navController_ = [[UINavigationController alloc] initWithRootViewController:director_];
-	navController_.navigationBarHidden = YES;
 	
+	if([[[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."][0] intValue] >= 7)
+    {
+       navController_.navigationBar.barStyle = UIBarStyleBlackOpaque ;
+        navController_.navigationBar.topItem.title = @"MECLinkLink";
+
+    }
+    else
+    {
+        navController_.navigationBarHidden = YES;
+    }
 	// set the Navigation Controller as the root view controller
 //	[window_ addSubview:navController_.view];	// Generates flicker.
 	[window_ setRootViewController:navController_];

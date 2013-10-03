@@ -14,6 +14,7 @@
 	NSInteger countCleared;
 	NSMutableArray *arrayMap;
 	NSInteger counter;
+    
 }
 
 +(CCScene *) scene;

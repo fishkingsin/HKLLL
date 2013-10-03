@@ -58,8 +58,10 @@ static int imgMap[64] = {
     float OFFSET_Y;							//60
     float SIZE_W;								//30
     float SIZE_H;								//40
+    CCLabelTTF *_text;
+    NSInteger _countTime;
 }
-
+@property (nonatomic, assign) NSInteger countTime;
 @property (nonatomic, strong) CCSprite *explosion1;
 @property (nonatomic, strong) CCSprite *explosion2;
 @property (nonatomic, strong) CCAction *exploseAction;
@@ -68,7 +70,7 @@ static int imgMap[64] = {
 
 @end
 @implementation GameCoreLayer
-
+@synthesize countTime = _countTime;
 + (CCScene *)scene
 {
 	CCScene *scene = [CCScene node];
@@ -225,7 +227,16 @@ static int imgMap[64] = {
 		}
 	}
 }
-
+-(void)countDown:(ccTime)delta {
+    
+    self.countTime--;
+    [_text setString:[NSString stringWithFormat:@"%i", self.countTime]];
+    if (self.countTime <= 0) {
+        
+        [self unschedule:@selector(countDown:)];
+        [self showLose];
+    }
+}
 - (void)initView
 {
 	self.isTouchEnabled = YES;
@@ -250,13 +261,23 @@ static int imgMap[64] = {
 		}
 	}
 	
-	CCSprite *button;
-	button = [CCSprite spriteWithFile:@"play.png"];
-	button.position = ccp(size.width - 55, 25);
-	[self addChild:button];
-	
+//	CCSprite *button;
+//	button = [CCSprite spriteWithFile:@"play.png"];
+//	button.position = ccp(size.width - 55, 25);
+//	[self addChild:button];
+    _countTime = 180;
+    
+    _text = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i", self.countTime]
+                            fontName:@"Helvetica" fontSize:20];
+    
+    _text.position  = ccp(size.width - 55, 25);
+    _text.color = ccWHITE;
+    [self addChild:_text];
+    
+    [self schedule:@selector(countDown:) interval:0.5f];// 0.5second intervals
+        
 	CCLabelTTF *label = [CCLabelTTF labelWithString:@"Progress:0%" fontName:@"Helvetica" fontSize:20];
-	label.position = ccp(100, 15);
+	label.position = ccp(100, 25);
 	[self addChild:label z:0 tag:TAG_LABEL_CONNER];
 	
 	CCLabelTTF *labelnum1 = [CCLabelTTF labelWithString:@"1" fontName:@"Helvetica" fontSize:64];
@@ -388,6 +409,20 @@ static int imgMap[64] = {
     
 	[self addChild:label];
 	[self scheduleOnce:@selector(makeTransition:) delay:2.0];
+}
+- (void)showLose
+{
+	CCLabelTTF *label = [CCLabelTTF labelWithString:NSLocalizedString(@"Failed!",nil) fontName:@"Helvetica" fontSize:32];
+	CGSize s = [[CCDirector sharedDirector] winSize];
+	label.position = ccp(s.width/2, s.height/2);
+    [self addChild:label];
+    
+//    label = [CCLabelTTF labelWithString:NSLocalizedString(@"You termincated all membership of Executive Council",nil) fontName:@"Helvetica" fontSize:12];
+//    s = [[CCDirector sharedDirector] winSize];
+//	label.position = ccp(s.width/2, s.height/2-50);
+//    
+//	[self addChild:label];
+	[self scheduleOnce:@selector(makeTransition:) delay:5.0];
 }
 
 -(void) makeTransition:(ccTime)dt
